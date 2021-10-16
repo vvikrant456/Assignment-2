@@ -1,10 +1,10 @@
 # Assignment-2
 
-DataStructures
-Course Code: CS 201
-National Institute of Technology, Silchar
+DataStructures <br>
+Course Code: CS 201 <br>
+National Institute of Technology, Silchar <br>
 
-Submitted by-
-Vikas kumar Vikrant
-2012135
-CSE Sec-B
+Submitted by- <br>
+Vikas kumar Vikrant <br>
+2012135 <br>
+CSE Sec-B <br>
