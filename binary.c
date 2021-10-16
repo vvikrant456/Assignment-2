@@ -1,113 +1,65 @@
 #include <stdio.h>
-#include <string.h>
-#define ll long long
+#include "help.h"
 int main()
 {
-    char num1[32];
-    char num2[32];
-
-    scanf("%s %s", &num1, &num2);
-
-    int carry = 0;
-    char sum[32];
-
-    int len1 = strlen(num1);
-    int len2 = strlen(num2);
-    if (len1 > len2)
+    while (1)
     {
-        int Endpoint = 0;
-        for (int i = len1 - 1; i >= 0; i--)
+        int choice;
+        printf("Select a choice: \n 1. Addition \n 2. Multiplication \n 3. Exit \n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        if (choice == 1)
         {
-            if (num2[i] == '1' && num1[i] == '1' && carry == 0)
+            long binary1, binary2;
+            printf("Enter two binary no.s: ");
+            scanf("%ld %ld", &binary1, &binary2);
+            int i = 0, reminder = 0, sum[20];
+            while (binary1 != 0 || binary2 != 0)
             {
-                sum[i] = '0';
-                carry = 1;
+                sum[i++] = (binary1 % 10 + binary2 % 10 + reminder) % 2;
+                reminder = (binary1 % 10 + binary2 % 10 + reminder) / 2;
+                binary1 = binary1 / 10;
+                binary2 = binary2 / 10;
             }
-            if ((num1[i] == '1' && num2[i] == '0') || (num2[i] == '1' && num1[i] == '0') && carry == 0)
+            if (reminder != 0)
             {
-                sum[i] = '1';
+                sum[i++] = reminder;
+                i--;
+                printf("Sum is: ");
+                while (i >= 0)
+                {
+                    printf("%d\n", sum[i--]);
+                }
             }
-
-            if ((num1[i] == '1' && num2[i] == '0') || (num2[i] == '1' && num1[i] == '0') && carry == 1)
-            {
-                sum[i] = '1';
-                carry = 1;
-            }
-            Endpoint = i;
         }
-        for (int i = Endpoint - 1; i >= 0; i--)
+        else if (choice == 2)
         {
-            if (num1[i] == '1' && carry == 1)
+            long binary1, binary2, multiply = 0;
+            printf("Enter two binary no.s: ");
+            scanf("%ld %ld", &binary1, &binary2);
+            int digit, factor = 1;
+            while (binary2 != 0)
             {
-                sum[i] = '0';
-                carry = 1;
+                digit = binary2 % 10;
+                if (digit == 1)
+                {
+                    binary1 = binary1 * factor;
+                    multiply = binaryproduct(binary1, multiply);
+                }
+                else
+                {
+                    binary1 = binary1 * factor;
+                    binary2 = binary2 / 10;
+                    factor = 10;
+                }
             }
-            if (num1[i] == '1' && carry == 0)
-            {
-                sum[i] = '1';
-                carry = 0;
-            }
-            if (num1[i] == '0' && carry == 1)
-            {
-                sum[i] = '1';
-                carry = 0;
-            }
-            if (num1[i] == '0' && carry == 0)
-            {
-                sum[i] = '0';
-                carry = 0;
-            }
+            printf("Product is: %ld\n", multiply);
+        }
+        else
+        {
+            printf("Exiting..");
+            break;
         }
     }
-    else
-    {
-        int Endpoint = 0;
-        for (int i = len2 - 1; i >= 0; i--)
-        {
-            if (num2[i] == '1' && num1[i] == '1' && carry == 0)
-            {
-                sum[i] = '0';
-                carry = 1;
-            }
-            if ((num1[i] == '1' && num2[i] == '0') || (num2[i] == '1' && num1[i] == '0') && carry == 0)
-            {
-                sum[i] = '1';
-            }
-
-            if ((num1[i] == '1' && num2[i] == '0') || (num2[i] == '1' && num1[i] == '0') && carry == 1)
-            {
-                sum[i] = '1';
-                carry = 1;
-            }
-
-            Endpoint = i;
-        }
-
-        for (int i = Endpoint - 1; i >= 0; i--)
-        {
-            if (num1[i] == '1' && carry == 1)
-            {
-                sum[i] = '0';
-                carry = 1;
-            }
-            if (num1[i] == '1' && carry == 0)
-            {
-                sum[i] = '1';
-                carry = 0;
-            }
-            if (num1[i] == '0' && carry == 1)
-            {
-                sum[i] = '1';
-                carry = 0;
-            }
-            if (num1[i] == '0' && carry == 0)
-            {
-                sum[i] = '0';
-                carry = 0;
-            }
-        }
-    }
-
-    printf("%s", sum);
     return 0;
 }
